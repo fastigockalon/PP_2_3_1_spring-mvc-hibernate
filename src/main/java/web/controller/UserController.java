@@ -24,34 +24,34 @@ public class UserController {
         model.addAttribute("users", list);
         return "index";
     }
-    @RequestMapping(value = "/addUser")
+    @GetMapping(value = "/addUser")
     public String addNewUser(ModelMap model) {
         User user = new User();
         model.addAttribute("add", true);
         model.addAttribute("user", user);
         return "user-edit";
     }
-    @RequestMapping(value = "/saveNewUser")
+    @PostMapping(value = "/addUser")
     public String saveNewUser(@ModelAttribute("user") User user) {
         userService.addUser(user);
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/updateUser/{id}/save")
+    @PostMapping(value = "/updateUser/{id}")
     public String saveUser(@PathVariable("id") long id, @ModelAttribute("user") User user) {
         user.setId(id);
         userService.saveUser(user);
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/updateUser/{id}")
+    @GetMapping(value = "/updateUser/{id}")
     public String updateUser(@PathVariable("id") long id,ModelMap model) {
         User user = userService.getUserById(id);
         model.addAttribute("user", user);
         model.addAttribute("add", false);
         return "user-edit";
     }
-    @RequestMapping(value = "/deleteUser/{id}")
+    @GetMapping(value = "/deleteUser/{id}")
     public String deleteUser(@PathVariable("id") long id) {
         userService.removeById(id);
         return "redirect:/";

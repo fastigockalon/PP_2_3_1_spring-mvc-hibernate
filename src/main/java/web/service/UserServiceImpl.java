@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService{
         userDAO.addUser(user);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public User getUserById(long id) {
         return userDAO.getUserById(id);
     }
